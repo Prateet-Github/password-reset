@@ -1,0 +1,31 @@
+🔹 Theory
+
+When a user forgets their password:
+	1.	Forgot Password Request
+	•	User enters their email.
+	•	Backend checks if the email exists.
+	•	Generates a secure random token (short-lived, e.g., 15 mins).
+	•	Saves it in the database (hashed) with an expiry time.
+	•	Sends a reset password link via email containing the token.
+
+	2.	Reset Password Page
+	•	User clicks link (e.g., https://example.com/reset-password/:token).
+	•	Frontend asks them to set a new password.
+	•	Backend verifies token & expiry, then updates the password.
+  
+	3.	Security
+	•	Token should be single-use.
+	•	Should expire quickly.
+	•	Store token hashed (never plain text).
+	•	Always hash the new password before saving.
+
+
+User clicks "Forgot Password"
+        ↓
+Enter email → Backend verifies → Generate token → Save in DB
+        ↓
+Send email with reset link (token in URL)
+        ↓
+User clicks link → Opens reset form → Submits new password
+        ↓
+Backend verifies token & expiry → Updates password → Deletes token
